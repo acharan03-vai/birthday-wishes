@@ -3,191 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <title>Birthday Wishes</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Poppins Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Poppins', sans-serif;
-  overflow: hidden;
-}
-
-/* 🌌 Magical Background */
 body {
-  background: radial-gradient(circle at top, #1b3a5f, #05010a 70%);
-}
-
-/* ✨ Moving stars */
-.stars {
-  position: fixed;
-  inset: 0;
-  background: url("https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/img/stars.png");
-  animation: starsMove 120s linear infinite;
-  opacity: 0.5;
-  z-index: 0;
-}
-
-@keyframes starsMove {
-  from { transform: translate(0,0); }
-  to { transform: translate(-50%,-50%); }
-}
-
-/* 📍 Centered Text */
-.container {
-  position: relative;
-  z-index: 2;
-  height: 100%;
+  margin: 0;
+  height: 100vh;
+  background: url("background.jpeg") no-repeat center center fixed;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  overflow: hidden;
+}
+
+#container {
   text-align: center;
-  padding: 20px;
+  max-width: 90%;
 }
 
-#text {
-  font-size: 1.6rem;
-  line-height: 1.8;
-  color: #f5f5f5;
-  max-width: 900px;
-  min-height: 180px;
+.line {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  display: none;
 }
 
-/* 🔥 Highlight letters (C H A I T A N Y A) */
+/* Typewriter cursor */
+.cursor::after {
+  content: "|";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Highlight glowing letters */
 .highlight {
-  font-size: 2.4rem;
   font-weight: 600;
   color: #ffd700;
-  text-shadow: 0 0 12px #ffd700, 0 0 28px #ffb700;
+  text-shadow: 0 0 8px #ffd700, 0 0 15px #ffcc00;
 }
 
-/* 🔮 Magical birthday animation */
-@keyframes magicIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.6);
-    text-shadow: 0 0 0 #fff;
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.15);
-    text-shadow: 0 0 30px #ffd700, 0 0 60px #ffb700;
-  }
-  100% {
-    transform: scale(1);
-    text-shadow: 0 0 20px #ffd700;
-  }
+/* Magical animation */
+.magic {
+  font-size: 1.25rem;
+  animation: magicGlow 3s ease-in-out infinite;
 }
 
-/* 🎵 Tap hint */
+@keyframes magicGlow {
+  0% { text-shadow: 0 0 5px #fff; opacity: 0.6; }
+  50% { text-shadow: 0 0 25px #ffd700; opacity: 1; }
+  100% { text-shadow: 0 0 5px #fff; opacity: 0.6; }
+}
+
 .tap {
-  position: absolute;
-  bottom: 18px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.85rem;
-  color: #aaa;
-  z-index: 3;
+  position: fixed;
+  bottom: 15px;
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
 </style>
 </head>
 
 <body>
 
-<div class="stars"></div>
-
-<div class="container">
-  <div id="text"></div>
-</div>
-
+<div id="container"></div>
 <div class="tap">Tap once anywhere to start 🎵</div>
 
 <audio id="music" src="Happy-Birthday-To-You-Ji.mp3"></audio>
 
 <script>
 const lines = [
-  "Hey..!! Ee roju date yentho telusa..??",
-  "Today is 10th April..",
-  "So ee roju mana class lo oka ammayii birthday..",
-  "So konchem naa wishes thanaki convey chesthaava pls..",
-  "Yevaro telusa neeku..",
-  "Thanu..",
-
-  "<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from Heart chaala ante chaala manchidhi..",
-  "<span class='highlight'>H</span>aanandhanga frnds tho kalisi muchatlo petukovadam ante chaaala istam, andharu manchiga undaali ane korukuntundhi..",
-  "<span class='highlight'>A</span>na baadhanu chepi inkokarini yeppudu baadhapetadhu..",
-  "<span class='highlight'>I</span>mazing character.. Totally different and matured",
-  "<span class='highlight'>T</span>elisinantha varaku thanaki ZERO EGO",
-  "<span class='highlight'>A</span>yina ye okarini mosam cheyadhu, chaala loyal.. Thanu",
-  "<span class='highlight'>N</span>u anukunte thanakana best inkevaaru undaaru..",
-  "<span class='highlight'>Y</span>ear ki okasari kaadu.. Time tho maarani manishi..",
-  "<span class='highlight'>A</span>laanti oka ammayi..",
-
-  "To someone I have known for about a year..",
-  "To someone whom I have never seen on an angry mode..",
-  "To someone who is never selfish..",
-  "To someone who is always humble and kind..",
-  "To that one particular person who hasn't changed with time..",
-
-  "__MAGICAL__",
-
-  "May you be blessed with THE BEST things in your life..",
-  "May all your dreams come true.. Still a long way to go..",
-  "Health jaagratha..",
-  "Yeppudu ye vishayam gurinchi alochinchi low ga feel avaku..",
-  "Yedhi jarigina mana manchike jaruguthundhi ani positive gaa tisko..",
-  "And like always… Be happy.. Have that smile on your face.",
-  "Never let anything or anyone fade it away.",
-  "Ok na...",
-  "All the very best for ur life...",
-  "Be always strong..",
-  "Enjoy every single moment of ur life..",
-  "Byee.. Enjoy your day..."
+"Hey..!! Ee roju date yentho telusa..??",
+"Today is 10th April..",
+"So ee roju mana class lo oka ammayii birthday..",
+"So konchem naa wishes thanaki convey chesthaava pls..",
+"Yevaro telusa neeku..",
+"Thanu..",
+"<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from Heart chaala ante chaala manchidhi..",
+"<span class='highlight'>H</span>aanandhanga frnds tho kalisi muchatlo petukovadam ante chaaala istam..",
+"<span class='highlight'>A</span>ndharu manchiga undaali ane korukuntundhi..",
+"<span class='highlight'>I</span>nkokarini yeppudu baadhapetadhu thana baadhanu cheppi..",
+"<span class='highlight'>T</span>otally different and matured character..",
+"<span class='highlight'>A</span>asal thanaki ego ante ZERO ani anipisthundhi naaku..",
+"<span class='highlight'>N</span>ijanga chaala loyal and true person thanu..",
+"<span class='highlight'>Y</span>e okariki mosam cheyadhu..",
+"<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
+"To someone I have known for about a year..",
+"To someone whom I have never seen on an angry mode..",
+"To someone who is never selfish..",
+"To someone who is always humble and kind..",
+"To that one particular person who hasn’t changed with time..",
+"<span class='magic'>Wishing you a many more happy returns of the day Chaitanya 🥳💐</span>",
+"May you be blessed with the best things in your life..",
+"May all your dreams come true.. Still a long way to go..",
+"Health jaagratha..",
+"Yeppudu low ga feel avaku..",
+"Yedhi jarigina mana manchike jaruguthundhi ani positive gaa tisko..",
+"And like always… Be happy.. Have that smile on your face.",
+"Never let anything or anyone fade it away.",
+"Ok na...",
+"All the very best for your life...",
+"Be always strong..",
+"Enjoy every single moment of your life..",
+"Byee.. Enjoy your day..."
 ];
 
-const magicalLine = "Wishing you a many more happy returns of the day Chaitanya 🥳🥳💐💐";
-
+const container = document.getElementById("container");
 let index = 0;
-const textDiv = document.getElementById("text");
+let started = false;
 
-function typeLine(text, i = 0) {
-  if (i === 0) textDiv.innerHTML = "";
-  if (i < text.length) {
-    textDiv.innerHTML += text[i];
-    setTimeout(() => typeLine(text, i + 1), 35);
-  } else {
-    setTimeout(next, 1700);
-  }
+function typeLine(html, callback) {
+  const div = document.createElement("div");
+  div.className = "line cursor";
+  container.appendChild(div);
+  div.style.display = "block";
+
+  const temp = document.createElement("div");
+  temp.innerHTML = html;
+  const text = temp.textContent;
+  let i = 0;
+
+  const interval = setInterval(() => {
+    div.innerHTML = html.slice(0, i++);
+    if (i > html.length) {
+      clearInterval(interval);
+      div.classList.remove("cursor");
+      setTimeout(() => {
+        div.remove();
+        callback();
+      }, 1800);
+    }
+  }, 40);
 }
 
-function showMagical() {
-  textDiv.innerHTML = magicalLine;
-  textDiv.style.animation = "magicIn 2.4s ease forwards";
-  setTimeout(() => {
-    textDiv.style.animation = "";
-    textDiv.innerHTML = "";
-    next();
-  }, 3200);
-}
-
-function next() {
-  index++;
+function startShow() {
   if (index >= lines.length) return;
-  if (lines[index] === "__MAGICAL__") {
-    showMagical();
-  } else {
-    typeLine(lines[index]);
-  }
+  typeLine(lines[index], () => {
+    index++;
+    startShow();
+  });
 }
-
-typeLine(lines[index]);
 
 document.body.addEventListener("click", () => {
+  if (started) return;
+  started = true;
   document.getElementById("music").play();
-}, { once: true });
+  document.querySelector(".tap").style.display = "none";
+  startShow();
+});
 </script>
 
 </body>
