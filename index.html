@@ -2,152 +2,195 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday</title>
+<title>Birthday Wishes</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<!-- Playfair Display ONLY -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
   height: 100%;
   overflow: hidden;
   font-family: 'Playfair Display', serif;
 }
 
 body {
-  background: url('background.jpeg') center/cover no-repeat fixed;
+  background: url('background.jpeg') no-repeat center center fixed;
+  background-size: cover;
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-#container {
-  position: relative;
-  text-align: center;
-  width: 90%;
+  justify-content: center;
   color: #f5f7ff;
-  font-size: 1.55rem;
-  line-height: 1.8;
 }
 
-.line {
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-  left: 0;
+/* Dark overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
 }
 
-/* NORMAL LINES */
-.normal {
-  animation: ascendIn 1.8s ease-out forwards,
-             fadeOut 1.2s ease forwards 5s;
-}
-
-/* CHAITANYA LETTER HIGHLIGHT */
-.highlight {
-  color: #c8b6ff;
-  text-shadow:
-    0 0 12px rgba(200,182,255,0.9),
-    0 0 25px rgba(160,130,255,0.7);
-}
-
-/* BIRTHDAY LINE MAGIC */
-.magic {
-  font-size: 1.75rem;
-  font-weight: 600;
-  animation:
-    magicEnter 2.6s ease-out forwards,
-    magicPulse 2.2s ease-in-out infinite,
-    colorShift 6s ease-in-out infinite;
-  text-shadow:
-    0 0 30px rgba(255,215,120,0.9),
-    0 0 60px rgba(255,170,70,0.8),
-    0 0 90px rgba(255,140,0,0.6);
-}
-
-/* STARS */
-.star {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 3s infinite ease-in-out;
-  opacity: 0.8;
-}
-
-/* ANIMATIONS */
-@keyframes ascendIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
-@keyframes magicEnter {
-  from { opacity: 0; transform: scale(0.85); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes magicPulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
-
-@keyframes colorShift {
-  0%   { color: #fff1b8; }
-  33%  { color: #ffd27d; }
-  66%  { color: #ffecb3; }
-  100% { color: #fff1b8; }
+/* Stars */
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+    radial-gradient(2px 2px at 70% 40%, #fff, transparent),
+    radial-gradient(3px 3px at 40% 70%, #fff, transparent),
+    radial-gradient(2px 2px at 80% 80%, #fff, transparent),
+    radial-gradient(2px 2px at 10% 60%, #fff, transparent);
+  animation: twinkle 3s infinite alternate;
 }
 
 @keyframes twinkle {
-  0%,100% { opacity: 0.4; }
-  50% { opacity: 1; }
+  from { opacity: 0.4; }
+  to { opacity: 1; }
 }
 
-#hint {
+/* Text container */
+.container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+}
+
+/* Lines */
+.line {
+  font-size: 1.5rem;
+  margin: 18px 0;
+  opacity: 0;
+}
+
+/* Normal line animation */
+.animate {
+  animation: ascend 1.2s ease-out forwards;
+}
+
+@keyframes ascend {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Birthday magical line */
+.magic {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #fff1b8;
+  text-shadow:
+    0 0 20px rgba(255, 215, 120, 0.9),
+    0 0 40px rgba(255, 180, 60, 0.8),
+    0 0 70px rgba(255, 150, 0, 0.6);
+  animation:
+    magicEnter 2.2s ease-out forwards,
+    magicPulse 2.5s ease-in-out infinite,
+    colorShift 6s ease-in-out infinite;
+}
+
+@keyframes magicEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes magicPulse {
+  0% { text-shadow: 0 0 15px rgba(255,200,100,.6); }
+  50% { text-shadow: 0 0 40px rgba(255,220,150,1); }
+  100% { text-shadow: 0 0 15px rgba(255,200,100,.6); }
+}
+
+@keyframes colorShift {
+  0% { color: #fff1b8; }
+  33% { color: #ffd27d; }
+  66% { color: #ffe8b3; }
+  100% { color: #fff1b8; }
+}
+
+/* GOLDEN NAME LETTERS */
+.highlight {
+  color: #ffd36a;
+  font-weight: 700;
+  text-shadow:
+    0 0 12px rgba(255, 211, 106, 0.9),
+    0 0 30px rgba(255, 193, 77, 0.8),
+    0 0 55px rgba(255, 160, 0, 0.7);
+  animation: goldPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes goldPulse {
+  0% {
+    text-shadow: 0 0 10px rgba(255,211,106,.6);
+  }
+  50% {
+    text-shadow:
+      0 0 25px rgba(255,215,120,1),
+      0 0 50px rgba(255,180,60,.9);
+  }
+  100% {
+    text-shadow: 0 0 10px rgba(255,211,106,.6);
+  }
+}
+
+/* Tap text */
+.tap {
   position: fixed;
-  bottom: 18px;
+  bottom: 25px;
   width: 100%;
   text-align: center;
-  color: rgba(255,255,255,0.6);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  z-index: 2;
 }
 </style>
 </head>
 
 <body>
 
-<div id="container"></div>
-<div id="hint">Tap anywhere to start music 🎵</div>
+<div class="overlay"></div>
+<div class="stars"></div>
 
-<audio id="bgm" loop>
-  <source src="Happy-Birthday-To-You-Ji.mp3" type="audio/mpeg">
-</audio>
+<audio id="music" src="Happy-Birthday-To-You-Ji.mp3" loop></audio>
+
+<div class="container" id="container"></div>
+
+<div class="tap">Tap once anywhere to start 🎵</div>
 
 <script>
 const lines = [
 "Hey..!! Ee roju date yentho telusa..??",
 "Today is 10th April..",
 "So ee roju mana class lo oka ammayii birthday..",
-"So konchem naa wishes thanaki convey chesthaava pls..",
 "Yevaro telusa neeku..",
 "Thanu..",
 "<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from",
-"<span class='highlight'>H</span>eart chaala ante chaala manchidhi..",
-"<span class='highlight'>A</span>anandhanga frnds tho kalisi muchatlo petukovadam ante chaaala",
-"<span class='highlight'>I</span>stam, andharu manchiga undaali ane korukuntundhi..",
-"<span class='highlight'>T</span>hana baadhanu chepi inkokarini yeppudu baadhapetadhu..",
-"<span class='highlight'>A</span>mazing character.. Totally different and matured",
-"<span class='highlight'>N</span>aaku telisinantha varaku thanaki ZERO EGO",
-"<span class='highlight'>Y</span>e okarini mosam cheyadhu, chaala loyal.. Thanu",
-"<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
-"To someone I have known for about a year..",
+"Heart chaala ante chaala manchidhi..",
+"<span class='highlight'>H</span>aanandhanga frnds tho kalisi muchatlo petukovadam ante chaaala",
+"<span class='highlight'>A</span>stam, andharu manchiga undaali ane korukuntundhi..",
+"<span class='highlight'>I</span>thana baadhanu chepi inkokarini yeppudu baadhapetadhu..",
+"<span class='highlight'>T</span>mazing character.. Totally different and matured",
+"<span class='highlight'>A</span>aaku telisinantha varaku thanaki ZERO EGO",
+"<span class='highlight'>N</span>e okarini mosam cheyadhu, chaala loyal.. Thanu",
+"<span class='highlight'>Y</span>anukunte thanakana best inkevaaru undaaru..",
+"<span class='highlight'>A</span>o someone I have known for about a year..",
 "To someone whom I have never seen on an angry mode..",
 "To someone who is never selfish..",
 "To someone who is always humble and kind..",
@@ -168,40 +211,35 @@ const lines = [
 ];
 
 const container = document.getElementById("container");
+const music = document.getElementById("music");
 let index = 0;
 
-function showNextLine() {
+document.body.addEventListener("click", () => {
+  music.play();
+  showLine();
+}, { once: true });
+
+function showLine() {
   if (index >= lines.length) return;
 
   const div = document.createElement("div");
-  div.className = "line " + (lines[index].includes("magic") ? "magic" : "normal");
+  div.className = "line";
   div.innerHTML = lines[index];
   container.appendChild(div);
 
-  setTimeout(() => div.style.opacity = 1, 50);
-  setTimeout(() => container.removeChild(div), 6500);
+  setTimeout(() => {
+    div.classList.add(
+      div.innerHTML.includes("magic") ? "magic" : "animate"
+    );
+  }, 100);
+
+  setTimeout(() => {
+    div.style.opacity = "0";
+  }, 4500);
 
   index++;
-  setTimeout(showNextLine, 6500);
+  setTimeout(showLine, 4800);
 }
-
-showNextLine();
-
-/* STARS */
-for (let i = 0; i < 80; i++) {
-  const star = document.createElement("div");
-  star.className = "star";
-  star.style.top = Math.random() * 100 + "%";
-  star.style.left = Math.random() * 100 + "%";
-  star.style.animationDelay = Math.random() * 3 + "s";
-  document.body.appendChild(star);
-}
-
-/* MUSIC */
-document.body.addEventListener("click", () => {
-  document.getElementById("bgm").play();
-  document.getElementById("hint").style.display = "none";
-}, { once: true });
 </script>
 
 </body>
