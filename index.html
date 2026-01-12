@@ -4,69 +4,101 @@
 <meta charset="UTF-8">
 <title>Birthday Wishes</title>
 
-<!-- Poppins Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: url("background.jpeg") no-repeat center center fixed;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  overflow: hidden;
+body{
+  margin:0;
+  height:100vh;
+  background:url("background.jpeg") no-repeat center center fixed;
+  background-size:cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Poppins',sans-serif;
+  color:white;
+  overflow:hidden;
 }
 
-#container {
-  text-align: center;
-  max-width: 90%;
+/* dark overlay */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:0;
 }
 
-.line {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  display: none;
+#container{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  max-width:90%;
 }
 
-/* Typewriter cursor */
-.cursor::after {
-  content: "|";
-  animation: blink 1s infinite;
+.line{
+  font-size:1.1rem;
+  line-height:1.6;
+  display:none;
+  white-space:pre-wrap;
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+/* typewriter cursor */
+.cursor::after{
+  content:"|";
+  animation:blink 1s infinite;
+}
+@keyframes blink{
+  50%{opacity:0;}
 }
 
-/* Highlight glowing letters */
-.highlight {
-  font-weight: 600;
-  color: #ffd700;
-  text-shadow: 0 0 8px #ffd700, 0 0 15px #ffcc00;
+/* glowing letters (C H A I T A N Y A) */
+.highlight{
+  font-weight:600;
+  color:#ffd700;
+  text-shadow:0 0 10px #ffd700,0 0 22px #ffcc00;
 }
 
-/* Magical animation */
-.magic {
-  font-size: 1.25rem;
-  animation: magicGlow 3s ease-in-out infinite;
+/* magical birthday line */
+.magic{
+  font-size:1.25rem;
+  animation:magicGlow 3s ease-in-out infinite;
+}
+@keyframes magicGlow{
+  0%{opacity:.6;text-shadow:0 0 6px #fff;}
+  50%{opacity:1;text-shadow:0 0 30px #ffd700;}
+  100%{opacity:.6;text-shadow:0 0 6px #fff;}
 }
 
-@keyframes magicGlow {
-  0% { text-shadow: 0 0 5px #fff; opacity: 0.6; }
-  50% { text-shadow: 0 0 25px #ffd700; opacity: 1; }
-  100% { text-shadow: 0 0 5px #fff; opacity: 0.6; }
+/* star sparkles */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  animation:floatStar linear infinite;
+}
+@keyframes floatStar{
+  from{transform:translateY(0);opacity:.8;}
+  to{transform:translateY(-120vh);opacity:0;}
 }
 
-.tap {
-  position: fixed;
-  bottom: 15px;
-  font-size: 0.8rem;
-  opacity: 0.7;
+/* final fade-out */
+.fade-out{
+  animation:fadeEnd 4s forwards;
+}
+@keyframes fadeEnd{
+  to{opacity:0;}
+}
+
+.tap{
+  position:fixed;
+  bottom:14px;
+  font-size:.8rem;
+  opacity:.7;
+  z-index:2;
 }
 </style>
 </head>
@@ -79,13 +111,24 @@ body {
 <audio id="music" src="Happy-Birthday-To-You-Ji.mp3"></audio>
 
 <script>
-const lines = [
+// create stars
+for(let i=0;i<35;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.bottom="-"+Math.random()*100+"vh";
+  s.style.animationDuration=(20+Math.random()*20)+"s";
+  document.body.appendChild(s);
+}
+
+const lines=[
 "Hey..!! Ee roju date yentho telusa..??",
 "Today is 10th April..",
 "So ee roju mana class lo oka ammayii birthday..",
 "So konchem naa wishes thanaki convey chesthaava pls..",
 "Yevaro telusa neeku..",
 "Thanu..",
+
 "<span class='highlight'>C</span>huseki chaala silent gaa untundhi, but from Heart chaala ante chaala manchidhi..",
 "<span class='highlight'>H</span>aanandhanga frnds tho kalisi muchatlo petukovadam ante chaaala istam..",
 "<span class='highlight'>A</span>ndharu manchiga undaali ane korukuntundhi..",
@@ -95,13 +138,16 @@ const lines = [
 "<span class='highlight'>N</span>ijanga chaala loyal and true person thanu..",
 "<span class='highlight'>Y</span>e okariki mosam cheyadhu..",
 "<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
+
 "To someone I have known for about a year..",
 "To someone whom I have never seen on an angry mode..",
 "To someone who is never selfish..",
 "To someone who is always humble and kind..",
 "To that one particular person who hasn’t changed with time..",
-"<span class='magic'>Wishing you a many more happy returns of the day Chaitanya 🥳💐</span>",
-"May you be blessed with the best things in your life..",
+
+"<span class='magic'>Wishing you a many more happy returns of the day Chaitanya 🥳🥳💐💐</span>",
+
+"May you be blessed with THE BEST things in your life..",
 "May all your dreams come true.. Still a long way to go..",
 "Health jaagratha..",
 "Yeppudu low ga feel avaku..",
@@ -109,53 +155,50 @@ const lines = [
 "And like always… Be happy.. Have that smile on your face.",
 "Never let anything or anyone fade it away.",
 "Ok na...",
-"All the very best for your life...",
+"All the very best for ur life...",
 "Be always strong..",
-"Enjoy every single moment of your life..",
+"Enjoy every single moment of ur life..",
 "Byee.. Enjoy your day..."
 ];
 
-const container = document.getElementById("container");
-let index = 0;
-let started = false;
+const container=document.getElementById("container");
+let index=0, started=false;
 
-function typeLine(html, callback) {
-  const div = document.createElement("div");
-  div.className = "line cursor";
+function typeLine(html,done){
+  const div=document.createElement("div");
+  div.className="line cursor";
   container.appendChild(div);
-  div.style.display = "block";
-
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
-  const text = temp.textContent;
-  let i = 0;
-
-  const interval = setInterval(() => {
-    div.innerHTML = html.slice(0, i++);
-    if (i > html.length) {
+  div.style.display="block";
+  let i=0;
+  const interval=setInterval(()=>{
+    div.innerHTML=html.slice(0,i++);
+    if(i>html.length){
       clearInterval(interval);
       div.classList.remove("cursor");
-      setTimeout(() => {
+      setTimeout(()=>{
         div.remove();
-        callback();
-      }, 1800);
+        done();
+      },1700);
     }
-  }, 40);
+  },38);
 }
 
-function startShow() {
-  if (index >= lines.length) return;
-  typeLine(lines[index], () => {
+function startShow(){
+  if(index>=lines.length){
+    container.classList.add("fade-out");
+    return;
+  }
+  typeLine(lines[index],()=>{
     index++;
     startShow();
   });
 }
 
-document.body.addEventListener("click", () => {
-  if (started) return;
-  started = true;
+document.body.addEventListener("click",()=>{
+  if(started) return;
+  started=true;
   document.getElementById("music").play();
-  document.querySelector(".tap").style.display = "none";
+  document.querySelector(".tap").style.display="none";
   startShow();
 });
 </script>
