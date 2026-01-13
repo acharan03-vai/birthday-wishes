@@ -158,28 +158,24 @@ body {
   to { transform: scale(1.08); }
 }
 
-/* 🎬 ASCEND + SOFT BOUNCE */
+/* 🎬 BLUR → FOCUS ENTRY (Option 6) */
 .fadeIn {
-  animation: ascendBounce 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: focusIn 1.3s ease-out forwards;
 }
 
-@keyframes ascendBounce {
-  0% {
+@keyframes focusIn {
+  from {
     opacity: 0;
-    transform: translateY(35px) scale(0.98);
+    filter: blur(6px);
+    transform: scale(0.98);
   }
-  60% {
+  to {
     opacity: 1;
-    transform: translateY(-6px) scale(1.02);
-  }
-  80% {
-    transform: translateY(3px) scale(0.99);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    filter: blur(0);
+    transform: scale(1);
   }
 }
+
 .fadeOut {
   animation: fadeOut 1.5s ease forwards;
 }
@@ -263,11 +259,13 @@ const lines = [
 "<span class='highlight'>Y</span>e okarini mosam cheyadhu, chaala loyal.. Thanu",
 "<span class='highlight'>A</span>nukunte thanakana best inkevaaru undaaru..",
 
-"To someone I have known for about a year..",
-"To someone whom I have never seen on an angry mode..",
+"To someone I have known for about an year..",
+"To someone whom I have rarely seen on an angry mode..",
 "To someone who is never selfish..",
 "To someone who is always humble and kind..",
+"To someone who understands without many words...",
 "To that one particular person who hasn't changed with time..",
+" So...yeah now...",
 
 "<span class='magic'>Wishing you a many more happy returns of the day Chaitanya 🥳🥳💐💐</span>",
 
@@ -280,9 +278,9 @@ const lines = [
 "Never let anything or anyone fade it away.",
 "Ok na...",
 "All the very best for ur life...",
-"Be always strong..",
+"Always be strong..",
 "Enjoy every single moment of ur life..",
-"Byee.. Enjoy your day..."
+"Byeee.. Enjoy your day..."
 ];
 
 let i = 0;
