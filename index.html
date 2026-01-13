@@ -31,10 +31,16 @@ body {
   justify-content: center;
   align-items: center;
 }
-<div id="tapToStart">
-  Tap anywhere to start music 🎵🎵
-</div>
-  
+#tapToStart {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: gold;
+  font-size: 20px;
+  z-index: 5;   /* 🔥 MUST be higher than stars */
+  cursor: pointer;
+}
 /* ⭐ STARS */
 .stars {
   position: fixed;
@@ -164,6 +170,9 @@ body {
 </head>
 
 <body>
+<div id="tapToStart">
+  Tap anywhere to start music 🎵🎵
+</div>
 
 <div class="stars" id="stars"></div>
 
