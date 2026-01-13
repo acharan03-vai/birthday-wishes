@@ -18,11 +18,20 @@ html, body {
 }
 
 body {
-  background: url('space.jpeg') no-repeat center center fixed;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.55)
+    ),
+    url('beach.jpg') no-repeat center center fixed;
+
   background-size: cover;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
 }
 
 /* ⭐ STARS */
