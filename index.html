@@ -31,16 +31,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-#tapToStart {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: gold;
-  font-size: 20px;
-  z-index: 5;   /* 🔥 MUST be higher than stars */
-  cursor: pointer;
-}
+
 /* ⭐ STARS */
 .stars {
   position: fixed;
@@ -48,7 +39,24 @@ body {
   pointer-events: none;
   z-index: 1;
 }
+#tapToStart {
+  position: fixed;
+  bottom: 40px;              /* moves it to bottom */
+  left: 50%;
+  transform: translateX(-50%);
 
+  font-size: 16px;           /* reduced font size */
+  color: #f5e6a8;            /* soft gold */
+  text-align: center;
+
+  z-index: 5;
+  animation: blink 1.5s infinite;
+}
+ @keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.3; }
+  100% { opacity: 1; }
+}
 .star {
   position: absolute;
   width: 6px;
@@ -210,7 +218,18 @@ function createSparkles() {
 
 /* 🎵 MUSIC */
 const music = document.getElementById("bgm");
-document.body.addEventListener("click", () => music.play(), { once: true });
+const tapText = document.getElementById("tapToStart");
+
+let started = false;
+
+document.body.addEventListener("click", () => {
+  if (started) return;
+  started = true;
+
+  music.play();          // start music
+  tapText.style.display = "none"; // remove tap text
+  showLine();           // start text animation
+});
 
 /* 📝 TEXT */
 const lines = [
