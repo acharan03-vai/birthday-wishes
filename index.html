@@ -202,43 +202,30 @@ function createSparkles() {
     setTimeout(() => sp.remove(), 1800);
   }
 }
-/* 🎵 MUSIC — FINAL & CLEAN */
+
+/* 🎵 MUSIC — GUARANTEED MOBILE SAFE */
 const music = document.getElementById("bgm");
 const tapText = document.getElementById("tapToStart");
 let started = false;
-
-// Start only on FIRST user interaction
-document.body.addEventListener("touchstart", startExperience, { once: true });
-document.body.addEventListener("click", startExperience, { once: true });
 
 function startExperience() {
   if (started) return;
   started = true;
 
-  // hide "tap to start" text
   tapText.style.display = "none";
 
-  // reset & play music
   music.currentTime = 0;
   music.volume = 1;
 
-  const playPromise = music.play();
+  // 🚨 CRITICAL: play MUST happen immediately inside the gesture
+  music.play();
 
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => {
-        // music started successfully
-        setTimeout(showLine, 300);
-      })
-      .catch(() => {
-        // if browser blocks audio, still show text
-        showLine();
-      });
-  } else {
-    showLine();
-  }
+  // start text immediately after
+  showLine();
 }
 
+// 🔒 use ONLY ONE event
+document.body.addEventListener("pointerdown", startExperience, { once: true });
 
 /* 📝 TEXT */
 const lines = [
