@@ -144,28 +144,29 @@ body {
 @keyframes fadeOut {
   to { opacity: 0; }
   }
-/* ✨ MAGICAL TEXT ANIMATION */
-#line {
-  font-size: 1.35rem;
-  line-height: 1.7;
-  opacity: 0;
-  transition: all 1.5s ease; /* Smooth transition for all properties */
-  transform: translateY(10px); /* Starts slightly lower */
-  filter: blur(5px); /* Starts blurry */
-}
-
-/* 🌊 ADVANCED INDIVIDUAL LETTER EVAPORATION */
+/* 🌊 NEW EVAPORATION CSS */
 .letter {
   display: inline-block;
-  transition: all 2.5s ease-out;
+  opacity: 0;            /* Start invisible so they can fade in */
+  filter: blur(10px);
+  transform: translateY(10px);
+  transition: all 1.2s ease-out;
+}
+
+.evaporate-show .letter {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
 }
 
 .evaporate-hide .letter {
   opacity: 0 !important;
-  transform: translateY(-40px) rotate(var(--rot)) scale(1.2) !important;
-  filter: blur(10px) brightness(2) !important;
-  transition-delay: var(--delay) !important;
+  transform: translateY(-60px) rotate(var(--rot)) scale(1.4) !important;
+  filter: blur(15px) brightness(2) !important;
+  transition: all 2.5s ease-in !important;
+  transition-delay: var(--delay) !important; 
 }
+
 
 
 
@@ -387,6 +388,13 @@ function showLine() {
 }
 
 
+function applyLetterEffect(text) {
+  lineDiv.innerHTML = text.split('').map(char => {
+    const delay = Math.random() * 1.5; 
+    const rot = Math.random() * 50 - 25; 
+    return `<span class="letter" style="--delay: ${delay}s; --rot: ${rot}deg">${char === ' ' ? '&nbsp;' : char}</span>`;
+  }).join('');
+}
 
 
 </script>
