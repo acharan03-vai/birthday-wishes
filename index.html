@@ -339,49 +339,53 @@ function showLine() {
   }
 
   lineDiv.className = "";
-  lineDiv.style.letterSpacing = "normal";
   
   if (lines[i] === "__HANDWRITE__") {
-    lineDiv.style.transform = "none";
-    lineDiv.style.filter = "none";
     lineDiv.style.opacity = 1;
-    
     handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
-        // Wrap handwriting letters for evaporation
-                const text = lineDiv.querySelector(".handwrite").innerText;
-        applyLetterEffect(text); // 💧 Use your helper function here
+        const text = lineDiv.innerText; 
+        applyLetterEffect(text); // 💧 Converts wish to evaporating letters
 
         setTimeout(() => {
           lineDiv.classList.add("evaporate-hide"); 
           i++;
-          setTimeout(showLine, 4000); // Give it time to evaporate
+          setTimeout(showLine, 4500); // 💧 Timing for final exit
         }, 1500);
-
     });
     return;
   }
 
-  // 💧 Wrap every letter of the normal lines
-    // 💧 Cleanly handle the normal lines
+  // 💧 Handle normal lines without breaking HTML tags
   const temp = document.createElement('div');
   temp.innerHTML = lines[i]; 
-  const cleanText = temp.innerText; // This gets the text without breaking the <span> tags
+  const cleanText = temp.innerText; 
   
-  applyLetterEffect(cleanText); // 💧 This makes the text visible and ready
+  applyLetterEffect(cleanText); 
   
   setTimeout(() => {
-    lineDiv.classList.add("evaporate-show");
+    lineDiv.classList.add("evaporate-show"); // 💧 Fades in letters
   }, 100);
 
   setTimeout(() => {
-    lineDiv.classList.add("evaporate-hide");
+    lineDiv.classList.add("evaporate-hide"); // 💧 Evaporates letters
   }, 3800);
 
   setTimeout(() => {
     i++;
     showLine();
-  }, 6500); // Wait for the full evaporate-hide transition to finish
+  }, 6800); 
 }
+
+// 💧 Helper function to create individual "molecules" for evaporation
+function applyLetterEffect(text) {
+  lineDiv.innerHTML = text.split('').map(char => {
+    const delay = Math.random() * 1.5; 
+    const rot = Math.random() * 50 - 25; 
+    return `<span class="letter" style="--delay: ${delay}s; --rot: ${rot}deg">${char === ' ' ? '&nbsp;' : char}</span>`;
+  }).join('');
+}
+
+
 function applyLetterEffect(text) {
   lineDiv.innerHTML = text.split('').map(char => {
     const delay = Math.random() * 1.5; 
