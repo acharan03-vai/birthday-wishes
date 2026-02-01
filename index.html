@@ -338,24 +338,25 @@ function showLine() {
     return;
   }
 
+  // Reset state for new line
   lineDiv.className = "";
   
   if (lines[i] === "__HANDWRITE__") {
     lineDiv.style.opacity = 1;
     handWrite("Wishing you many more happy returns of the day Chaitanya", () => {
         const text = lineDiv.innerText; 
-        applyLetterEffect(text); // 💧 Converts wish to evaporating letters
+        applyLetterEffect(text); 
 
         setTimeout(() => {
           lineDiv.classList.add("evaporate-hide"); 
           i++;
-          setTimeout(showLine, 4500); // 💧 Timing for final exit
+          setTimeout(showLine, 4500); 
         }, 1500);
     });
     return;
   }
 
-  // 💧 Handle normal lines without breaking HTML tags
+  // Use a temporary div to strip HTML tags safely
   const temp = document.createElement('div');
   temp.innerHTML = lines[i]; 
   const cleanText = temp.innerText; 
@@ -363,11 +364,11 @@ function showLine() {
   applyLetterEffect(cleanText); 
   
   setTimeout(() => {
-    lineDiv.classList.add("evaporate-show"); // 💧 Fades in letters
+    lineDiv.classList.add("evaporate-show"); 
   }, 100);
 
   setTimeout(() => {
-    lineDiv.classList.add("evaporate-hide"); // 💧 Evaporates letters
+    lineDiv.classList.add("evaporate-hide"); 
   }, 3800);
 
   setTimeout(() => {
@@ -376,16 +377,7 @@ function showLine() {
   }, 6800); 
 }
 
-// 💧 Helper function to create individual "molecules" for evaporation
-function applyLetterEffect(text) {
-  lineDiv.innerHTML = text.split('').map(char => {
-    const delay = Math.random() * 1.5; 
-    const rot = Math.random() * 50 - 25; 
-    return `<span class="letter" style="--delay: ${delay}s; --rot: ${rot}deg">${char === ' ' ? '&nbsp;' : char}</span>`;
-  }).join('');
-}
-
-
+// 💧 Helper function to split text into individual "vapor" letters
 function applyLetterEffect(text) {
   lineDiv.innerHTML = text.split('').map(char => {
     const delay = Math.random() * 1.5; 
